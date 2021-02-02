@@ -1,0 +1,13 @@
+{
+    "title": "SwitchCam Toolkit",
+    "description": "It allows you to create cameras in your maps that change when you enter certain areas, Silent Hill-style.",
+    "type": "tool",
+    "tags": [
+        "build",
+        "scenic"
+    ],
+    "ignore": [
+        ".git/*",
+        "README.md"
+    ]
+}
