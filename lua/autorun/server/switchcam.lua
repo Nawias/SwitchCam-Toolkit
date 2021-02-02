@@ -1,5 +1,6 @@
 util.AddNetworkString('ChangeCamera')
 util.AddNetworkString('ChangeFollowCamera')
+util.AddNetworkString('RemoveCamera')
 
 hook.Add('OnChangeCamTrigger', 'ChangeCamera', function()
   local activator, caller = ACTIVATOR, CALLER
@@ -30,6 +31,14 @@ hook.Add('OnChangeFollowCamTrigger', 'ChangeFollowCamera', function()
 
   net.Start('ChangeFollowCamera')
   net.WriteVector(camera:EyePos())
+  net.Send(activator)
+
+end )
+
+hook.Add('OnRemoveCamTrigger', 'RemoveCamera', function()
+  local activator = ACTIVATOR
+
+  net.Start('RemoveCamera')
   net.Send(activator)
 
 end )

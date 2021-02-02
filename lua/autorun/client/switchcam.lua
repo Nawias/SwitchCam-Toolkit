@@ -2,23 +2,18 @@
 SwitchCam = {};
 SwitchCam.changeCamera = function(camOrigin, camAngles)
 
-  local tex = GetRenderTarget('ScreenRT', ScrW(), ScrH())
-  local mat = CreateMaterial('ScreenRTMaterial', 'UnlitGeneric', {
-    ['$basetexture'] = tex:GetName()
-  })
+  
 
-  hook.Remove('HUDPaint', 'ChangeCamera')
+  hook.Remove('CalcView', 'ChangeCamera')
 
-  hook.Add('HUDPaint', 'ChangeCamera', function()
-  render.PushRenderTarget(tex)
-    render.RenderView({
-      origin = camOrigin,
-      angles = camAngles,
-    })
-  render.PopRenderTarget()
-    surface.SetDrawColor(color_white)
-    surface.SetMaterial(mat)
-    surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
+  hook.Add('CalcView', 'ChangeCamera', function()
+    local view = {
+        origin = camOrigin,
+        angles = camAngles,
+        fov = 90,
+        drawviewer = true
+      }
+    return view
   end )
 end
 
@@ -30,26 +25,22 @@ end
 
 SwitchCam.changeFollowCamera = function(camOrigin)
 
-  local tex = GetRenderTarget('ScreenRT', ScrW(), ScrH())
-  local mat = CreateMaterial('ScreenRTMaterial', 'UnlitGeneric', {
-    ['$basetexture'] = tex:GetName()
-  })
-
-  hook.Remove('HUDPaint', 'ChangeCamera')
-  hook.Add('HUDPaint', 'ChangeCamera', function()
+  hook.Remove('CalcView', 'ChangeCamera')
+  hook.Add('CalcView', 'ChangeCamera', function()
   local camAngles = SwitchCam.CalcAngleToPlayer(camOrigin);
-  render.PushRenderTarget(tex)
-    render.RenderView({
-      origin = camOrigin,
-      angles = camAngles,
-    })
-  render.PopRenderTarget()
-    surface.SetDrawColor(color_white)
-    surface.SetMaterial(mat)
-    surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
+  local view = {
+        origin = camOrigin,
+        angles = camAngles,
+        fov = 90,
+        drawviewer = true
+      }
+    return view
   end )
 end
 
+SwitchCam.removeCamera = function() 
+  hook.Remove('CalcView', 'ChangeCamera')
+end
 
 net.Receive('ChangeCamera', function()
   local camOrigin = net.ReadVector()
@@ -60,4 +51,5 @@ net.Receive('ChangeFollowCamera', function()
   local camOrigin = net.ReadVector()
   SwitchCam.changeFollowCamera(camOrigin)
 end )
+net.Receive('RemoveCamera', SwitchCam.removeCamera)
 print('SwitchCam client script initialized')
