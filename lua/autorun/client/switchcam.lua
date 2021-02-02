@@ -23,7 +23,7 @@ SwitchCam.changeCamera = function(camOrigin, camAngles)
 end
 
 SwitchCam.CalcAngleToPlayer = function(camOrigin)
-  local playerOrigin = LocalPlayer():GetPos() + ((LocalPlayer():EyePos() - LocalPlayer():GetPos())/2)
+  local playerOrigin = LocalPlayer():GetPos() + ((LocalPlayer():EyePos() - LocalPlayer():GetPos()) / 2)
   local camVector = playerOrigin - camOrigin
   return camVector:Angle()
 end
