@@ -1,1 +1,3 @@
-lua/autorun/client/switchcam.lua
+maps/luacam.bsp
+maps/luacam.lin
+maps/luacam.log
