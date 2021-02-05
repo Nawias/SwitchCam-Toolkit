@@ -2,7 +2,7 @@
 SwitchCam = {};
 SwitchCam.changeCamera = function(camOrigin, camAngles)
 
-  
+
 
   hook.Remove('CalcView', 'ChangeCamera')
 
@@ -38,7 +38,7 @@ SwitchCam.changeFollowCamera = function(camOrigin)
   end )
 end
 
-SwitchCam.removeCamera = function() 
+SwitchCam.removeCamera = function()
   hook.Remove('CalcView', 'ChangeCamera')
 end
 

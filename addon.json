@@ -3,5 +3,12 @@
   "description": "It allows you to create cameras in your maps that change when you enter certain areas, Silent Hill-style.",
   "type": "tool",
   "tags": ["build", "scenic"],
-  "ignore": [".git/*", "README.md", "LICENSE.md", "maps/*"]
+  "ignore": [
+    ".git/*",
+    "README.md",
+    "LICENSE.md",
+    "maps/*",
+    "switchcam.jpg",
+    "*.gma"
+  ]
 }
